@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Form from './components/Form'
 import Header from './components/Header'
 import Weather from './components/Weather'
+import Error from './components/Error'
 
 function App () {
 
@@ -11,8 +12,8 @@ function App () {
   })
 
   const [query, saveQuery] = useState(false)
-
   const [apiResult, saveApiResult] = useState({})
+  const [error, setError] = useState(false)
 
   const {city, country} = search
 
@@ -25,10 +26,23 @@ function App () {
         const response = await request.json()
         saveApiResult(response)
         saveQuery(false)
+        // verify result status
+        if (response.cod === '404') {
+          setError(true)
+        } else {
+          setError(false)
+        }
       }
     }
     fetchAPI()
   }, [query])
+
+  let conditionalComponent
+  if (error) {
+    conditionalComponent = <Error message="No result found for this search" />
+  } else {
+    conditionalComponent = <Weather apiResult={apiResult} />
+  }
 
   return (
     <>
@@ -46,7 +60,7 @@ function App () {
               />
             </div>
             <div className="col m6 s12">
-              <Weather apiResult={apiResult} />
+              {conditionalComponent}
             </div>
           </div>
         </div>
