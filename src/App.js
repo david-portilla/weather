@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import Form from './components/Form'
 import Header from './components/Header'
+import Weather from './components/Weather'
 
 function App () {
 
@@ -11,6 +12,8 @@ function App () {
 
   const [query, saveQuery] = useState(false)
 
+  const [apiResult, saveApiResult] = useState({})
+
   const {city, country} = search
 
   useEffect(() => {
@@ -18,15 +21,14 @@ function App () {
       if (query) {
         const apiKey = '01f8143c1269e0ef136cc629f37a2b08'
         const URL = `http://api.openweathermap.org/data/2.5/weather?q=${ city },${ country }&appid=${ apiKey }`
-        const response = await fetch(URL)
-        const res = await response.json()
-        console.log(res)
+        const request = await fetch(URL)
+        const response = await request.json()
+        saveApiResult(response)
+        saveQuery(false)
       }
     }
     fetchAPI()
   }, [query])
-
-
 
   return (
     <>
@@ -44,7 +46,7 @@ function App () {
               />
             </div>
             <div className="col m6 s12">
-              2
+              <Weather apiResult={apiResult} />
             </div>
           </div>
         </div>
