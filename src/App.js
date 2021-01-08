@@ -1,8 +1,14 @@
 import React from 'react'
+import Header from './components/Header'
 
 function App () {
   return (
-    <h1>Weather React</h1>
+    <>
+      <Header
+        title='Weather React App'
+      >
+      </Header>
+    </>
   );
 }
 
