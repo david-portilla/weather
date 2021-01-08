@@ -1,6 +1,30 @@
+<div align="center">
+  <h1> 🌩️🌧️ ⛅ ☀️   React Weather App    🌩️🌧️ ⛅ ☀️ </h1>
+  <p>React app to verify the weather on you city</p>
+  <br><br>
+  <img src=".github/Weather-App.png">
+  <br>
+  <br>
+  <p>Final result</p>
+  <p><strong>https://davidportilla.com/starwars</strong></p>
+  <br>
+</div>
+
+## Features
+
+- [x] API rest
+- [x] React hooks
+- [x] Materialize
+- [x] Styled component
+
 # Weather App
 
 React app to check the weather using Open Weather Map API
+https://openweathermap.org/
+
+## Instructions
+
+Type your city and select the country from the select.
 
 ## Available Scripts
 
