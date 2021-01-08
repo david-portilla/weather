@@ -35,6 +35,7 @@ function App () {
       }
     }
     fetchAPI()
+    // eslint-disable-next-line
   }, [query])
 
   let conditionalComponent
