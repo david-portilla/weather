@@ -1,6 +1,6 @@
 <div align="center">
   <h1> 🌩️🌧️ ⛅ ☀️   React Weather App    ☀️⛅🌧️🌩️  </h1>
-  <p>React app to verify the weather on you city</p>
+  <p>React app to verify the weather on your city</p>
   <br><br>
   <img src=".github/Weather-App.png">
   <br>
