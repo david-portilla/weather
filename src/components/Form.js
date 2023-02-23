@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 const Form = ({search, setSearch, saveQuery}) => {
 
   const [error, setError] = useState(false)
-
   const {city, country} = search
 
   const handleChange = e => {
@@ -27,22 +26,8 @@ const Form = ({search, setSearch, saveQuery}) => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-    >
-
+    <form onSubmit={handleSubmit} >
       {error ? <p className="red darken-4 error">All the fields are required</p> : null}
-
-      <div className="input-field col s12">
-        <input
-          type="text"
-          name="city"
-          id="city"
-          value={city}
-          onChange={handleChange}
-        />
-        <label htmlFor="city">City:</label>
-      </div>
 
       <div className="input-field col s12">
         <select
@@ -64,6 +49,17 @@ const Form = ({search, setSearch, saveQuery}) => {
       </div>
 
       <div className="input-field col s12">
+        <input
+          type="text"
+          name="city"
+          id="city"
+          value={city}
+          onChange={handleChange}
+        />
+        <label htmlFor="city">City:</label>
+      </div>
+
+      <div className="input-field col s12">
         <button
           type="submit"
           className="waves-effect waves-light btn-large btn-block yellow accent-4 col s12"
@@ -71,7 +67,6 @@ const Form = ({search, setSearch, saveQuery}) => {
           Search weather
         </button>
       </div>
-
     </form>
   )
 }
