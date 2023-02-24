@@ -1,15 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
+import Icons from "./Icons";
 
-const Weather = ({apiResult}) => {
-
-  const {name, main} = apiResult
-  if (!name || !main) return null
+const Weather = ({ apiResult }) => {
+  const { name, main, weather } = apiResult;
+  if (!name || !main || !weather) return null;
   // Transform Kelvin into Celsius
-  const kelvinToCelsius = (temperature)=>{
-    const _KELVIN = 273.15
-    return parseFloat(temperature - _KELVIN, 10).toFixed(0)
+  if (apiResult) {
+    console.log("w: ", apiResult.weather[0].main);
   }
+  const kelvinToCelsius = (temperature) => {
+    const _KELVIN = 273.15;
+    return parseFloat(temperature - _KELVIN, 10).toFixed(0);
+  };
 
   return (
     <div className="card-panel white col s12">
@@ -19,21 +22,24 @@ const Weather = ({apiResult}) => {
           {kelvinToCelsius(main.temp)}
           <span> &#x2103; </span>
         </p>
-        <p>Max. temperature: &nbsp;
+        <img className="icon" src={Icons(weather[0].main)} alt="Icon weather" />
+        <p>
+          Max. temperature: &nbsp;
           {kelvinToCelsius(main.temp_max)}
           <span> &#x2103; </span>
         </p>
-        <p>Min. temperature: &nbsp;
+        <p>
+          Min. temperature: &nbsp;
           {kelvinToCelsius(main.temp_min)}
           <span> &#x2103; </span>
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 Weather.propTypes = {
-  apiResult: PropTypes.object.isRequired
-}
+  apiResult: PropTypes.object.isRequired,
+};
 
-export default Weather
+export default Weather;

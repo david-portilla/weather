@@ -1,12 +1,12 @@
 <div align="center">
   <h1> 🌩️🌧️ ⛅ ☀️   React Weather App    ☀️⛅🌧️🌩️  </h1>
-  <p>React app to verify the weather on your city</p>
+  <p> React app to verify the weather on your city </p>
   <br><br>
   <img src=".github/Weather-App.png">
   <br>
   <br>
-  <p>Final result</p>
-  <p><strong>https://david-portilla.github.io/weather/</strong></p>
+  <p> Final result </p>
+  <p><strong> https://david-portilla.github.io/weather/ </strong></p>
   <br>
 </div>
 
@@ -16,6 +16,7 @@
 - [x] React hooks
 - [x] Materialize
 - [x] Styled component
+- [x] Animated SVG icons from [Meteocons] (https://bas.dev/work/meteocons)
 
 # Weather App
 

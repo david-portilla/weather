@@ -1,64 +1,54 @@
-import React, {useEffect, useState} from 'react'
-import Form from './components/Form'
-import Header from './components/Header'
-import Weather from './components/Weather'
-import Error from './components/Error'
+import React, { useEffect, useState } from "react";
+import Form from "./components/Form";
+import Header from "./components/Header";
+import Weather from "./components/Weather";
+import Error from "./components/Error";
 
-function App () {
+function App() {
+  const [city, setCity] = useState("");
+  const [query, setQuery] = useState(false);
+  const [apiResult, saveApiResult] = useState({});
+  const [error, setError] = useState(false);
+  const _URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}`;
 
-  const [search, setSearch] = useState({
-    city: '',
-    country: ''
-  })
-
-  const [query, saveQuery] = useState(false)
-  const [apiResult, saveApiResult] = useState({})
-  const [error, setError] = useState(false)
-
-  const {city, country} = search
   const fetchAPI = async () => {
-    if (query) {
-      const apiKey = '01f8143c1269e0ef136cc629f37a2b08'
-      const URL = `https://api.openweathermap.org/data/2.5/weather?q=${ city },${ country }&appid=${ apiKey }`
-      const request = await fetch(URL)
-      const response = await request.json()
-      saveApiResult(response)
-      saveQuery(false)
-      // verify result status
-      if (response.cod === '404') {
-        setError(true)
-      } else {
-        setError(false)
+    try {
+      const request = await fetch(_URL);
+      const response = await request.json();
+      saveApiResult(response);
+      setQuery(false);
+
+      if (response.cod === "404") {
+        // City not found
+        return setError(true);
       }
+      setError(false);
+    } catch (error) {
+      // Server error or API not available
+      setError(true);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchAPI()
+    if (query) {
+      fetchAPI();
+    }
     // eslint-disable-next-line
-  }, [query])
+  }, [query]);
 
   return (
     <>
-      <Header
-        title='Weather React App'
-      />
+      <Header title="Weather React App" />
       <div className="contenedor-form">
         <div className="container">
           <div className="row">
+            <p>Tipe a city to get the current weather.</p>
             <div className="col m6 s12">
-              <Form
-                search={search}
-                setSearch={setSearch}
-                saveQuery={saveQuery}
-              />
+              <Form city={city} setCity={setCity} setQuery={setQuery} />
             </div>
             <div className="col m6 s12">
-              { error ?
-                <Error message="No result found for this search" />
-              :
-                <Weather apiResult={apiResult} />
-              }
+              {error && <Error message="No result found for this city." />}
+              <Weather apiResult={apiResult} />
             </div>
           </div>
         </div>
