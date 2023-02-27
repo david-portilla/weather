@@ -38,11 +38,11 @@ function App() {
 
   return (
     <>
-      <Header title="Weather React App" />
+      <Header title="React Weather App" />
       <div className="contenedor-form">
         <div className="container">
           <div className="row">
-            <p>Tipe a city to get the current weather.</p>
+            <p>Type the city you would like to get the weather.</p>
             <div className="col m6 s12">
               <Form city={city} setCity={setCity} setQuery={setQuery} />
             </div>

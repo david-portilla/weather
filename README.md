@@ -14,9 +14,8 @@
 
 - [x] API rest
 - [x] React hooks
-- [x] Materialize
 - [x] Styled component
-- [x] Animated SVG icons from [Meteocons] (https://bas.dev/work/meteocons)
+- [x] Animated SVG icons from [https://bas.dev/work/meteocon] (https://bas.dev/work/meteocons)
 
 # Weather App
 
