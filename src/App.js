@@ -7,6 +7,7 @@ import React from "react";
 import TopButtons from "./components/TopButtons";
 import Inputs from "./components/Inputs";
 import TimeAndLocation from "./components/TimeAndLocation";
+import TemperatureAndDetails from "./components/TemperatureAndDetails";
 
 function App() {
   // const [city, setCity] = useState("");
@@ -47,6 +48,7 @@ function App() {
         <Inputs />
 
         <TimeAndLocation />
+        <TemperatureAndDetails />
       </div>
       {/* <Header title="React Weather App" />
       <UilReact />
