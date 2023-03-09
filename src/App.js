@@ -3,6 +3,7 @@ import Form from "./components/Form";
 import Header from "./components/Header";
 import Weather from "./components/Weather";
 import Error from "./components/Error";
+import UilReact from "@iconscout/react-unicons/icons/uil-react";
 
 function App() {
   const [city, setCity] = useState("");
@@ -38,7 +39,11 @@ function App() {
 
   return (
     <>
-      <Header title="React Weather App" />
+      <div className="mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400">
+        content
+      </div>
+      {/* <Header title="React Weather App" />
+      <UilReact />
       <div className="contenedor-form">
         <div className="container">
           <div className="row">
@@ -52,7 +57,7 @@ function App() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

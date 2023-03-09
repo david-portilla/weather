@@ -18,10 +18,6 @@ const Form = ({ city, setCity, setQuery }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {error ? (
-        <p className="red darken-4 error">All the fields are required</p>
-      ) : null}
-
       <div className="input-field col s12">
         <input
           type="text"
@@ -43,6 +39,13 @@ const Form = ({ city, setCity, setQuery }) => {
           Search weather
         </button>
       </div>
+
+      <div className="input-field col s12">
+        {error ? (
+          <p className="red darken-4 error">The city field is required</p>
+        ) : null}
+      </div>
+
     </form>
   );
 };

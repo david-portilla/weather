@@ -16,6 +16,7 @@
 - [x] React hooks
 - [x] Styled component
 - [x] Animated SVG icons from [https://bas.dev/work/meteocon] (https://bas.dev/work/meteocons)
+- [x] React Unicons by <a href="https://iconscout.com/">IconScout</a>
 
 # Weather App
 
@@ -30,6 +31,10 @@ Type your city and select the country from the select.
 
 In the project directory, you can run:
 
+To get all the packages:
+### `npm install`
+
+To run the app locally:
 ### `npm start`
 
 Runs the app in the development mode.\

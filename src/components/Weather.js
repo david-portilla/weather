@@ -7,7 +7,7 @@ const Weather = ({ apiResult }) => {
   if (!name || !main || !weather) return null;
   // Transform Kelvin into Celsius
   if (apiResult) {
-    console.log("w: ", apiResult.weather[0].main);
+    console.log("w: ", apiResult);
   }
   const kelvinToCelsius = (temperature) => {
     const _KELVIN = 273.15;
