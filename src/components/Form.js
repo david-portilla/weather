@@ -45,7 +45,6 @@ const Form = ({ city, setCity, setQuery }) => {
           <p className="red darken-4 error">The city field is required</p>
         ) : null}
       </div>
-
     </form>
   );
 };
