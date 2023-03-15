@@ -1,9 +1,4 @@
-import React, { useState, useEffect } from "react";
-// import Form from "./components/Form";
-// import Header from "./components/Header";
-// import Weather from "./components/Weather";
-// import Error from "./components/Error";
-// import UilReact from "@iconscout/react-unicons/icons/uil-react";
+import React, { useState } from "react";
 import TopButtons from "./components/TopButtons";
 import SearchForm from "./components/SearchForm";
 import TimeAndLocation from "./components/TimeAndLocation";
@@ -11,15 +6,60 @@ import TemperatureAndDetails from "./components/TemperatureAndDetails";
 import Forecast from "./components/Forecast";
 
 function App() {
+  const [city, setCity] = useState("");
+  const [apiResult, setApiResult] = useState({});
+
+  const {
+    lat,
+    lon,
+    temp,
+    feels_like,
+    temp_min,
+    temp_max,
+    humidity,
+    name,
+    dt,
+    country,
+    sunrise,
+    sunset,
+    details,
+    icon,
+    speed,
+  } = apiResult;
+
   return (
     <>
       <div className="mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400">
         <TopButtons></TopButtons>
-        <SearchForm />
-        <TimeAndLocation />
-        <TemperatureAndDetails />
-        <Forecast title="HOURLY FORECAST" />
-        <Forecast title="DAILY FORECAST" />
+        <SearchForm city={city} setCity={setCity} setApiResult={setApiResult} />
+
+        {apiResult && <code>{JSON.stringify(apiResult)}</code>}
+
+        <TimeAndLocation time={dt} country={country} name={name} />
+        <TemperatureAndDetails
+          details={details}
+          icon={icon}
+          temp={temp}
+          feels_like={feels_like}
+          humidity={humidity}
+          speed={speed}
+          sunrise={sunrise}
+          sunset={sunset}
+          temp_min={temp_min}
+          temp_max={temp_max}
+        />
+        <Forecast
+          title="HOURLY FORECAST"
+          lat={lat}
+          lon={lon}
+          setApiResult={setApiResult}
+        />
+        <Forecast
+          title="DAILY FORECAST"
+          lat={lat}
+          lon={lon}
+          setApiResult={setApiResult}
+        />
       </div>
       {/* <Header title="React Weather App" />
       <UilReact />

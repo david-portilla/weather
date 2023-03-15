@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import * as Unicons from "@iconscout/react-unicons";
 import { useFetch } from "../hooks/useFetch";
-import formatWeatherData from "../services/formatWeatherData";
+import { formatCurrentWeather } from "../services/utils";
 
-const SearchForm = () => {
-  const [city, setCity] = useState("");
-  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}`;
-  const [apiResult, saveApiResult] = useState({});
+const SearchForm = ({ city, setCity, setApiResult }) => {
+  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}&units=metric`;
+
   const [inputError, setInputError] = useState(false);
 
   const handleChange = (e) => setCity(e.target.value);
@@ -18,7 +17,7 @@ const SearchForm = () => {
     e.preventDefault();
     if (city.trim() === "") {
       setInputError(true);
-      saveApiResult({});
+      setApiResult({});
       return;
     }
 
@@ -28,12 +27,17 @@ const SearchForm = () => {
 
   useEffect(() => {
     if (data) {
-      saveApiResult(formatWeatherData(data));
+      if (data.cod === "404") {
+        setInputError(true);
+      }
+      if (data.cod !== "404") {
+        console.log("data: ", formatCurrentWeather(data));
+        setApiResult(formatCurrentWeather(data));
+      }
       setCity("");
-      console.log("data: ", data);
-
-      return () => handleCancelRequest;
     }
+
+    return () => handleCancelRequest;
   }, [data]);
 
   return (
@@ -54,7 +58,6 @@ const SearchForm = () => {
             placeholder="Search for city...."
             className="bg-white text-xl font-light p-2 w-full shadow-xl focus:outline-none capitalize placeholder:lowercase"
           />
-
           <button
             type="submit"
             className="waves-effect waves-light btn-large btn-block yellow accent-4 col s12"
@@ -92,15 +95,16 @@ const SearchForm = () => {
       <div className="input-field col s12">
         {loading && <h2>... loading</h2>}
 
+        {/* TODO: create error component */}
         {inputError ? (
           <p className="red darken-4 error">The city field is required</p>
         ) : null}
-
+        {inputError ? (
+          <p className="red darken-4 error">City not found</p>
+        ) : null}
         {error ? (
           <p className="red darken-4 error">Error from useFetch</p>
         ) : null}
-
-        {apiResult && <code>{JSON.stringify(apiResult)}</code>}
       </div>
     </>
   );
