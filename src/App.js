@@ -43,7 +43,7 @@ function App() {
 
         {/* {apiResult && <code>{JSON.stringify(apiResult)}</code>} */}
 
-        <TimeAndLocation
+        {/* <TimeAndLocation
           dt={dt}
           lat={lat}
           lon={lon}
@@ -52,9 +52,9 @@ function App() {
           country={country}
           apiResult={apiResult}
           setApiResult={setApiResult}
-        />
+        /> */}
 
-        <TemperatureAndDetails
+        {/* <TemperatureAndDetails
           details={details}
           icon={icon}
           temp={temp}
@@ -79,7 +79,7 @@ function App() {
           lon={lon}
           daily={daily}
           setApiResult={setApiResult}
-        />
+        /> */}
       </div>
       {/* <Header title="React Weather App" />
       <UilReact />

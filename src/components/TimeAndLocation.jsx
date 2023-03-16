@@ -19,14 +19,14 @@ const TimeAndLocation = ({
   const now = DateTime.now();
   const { data, loading, handleRequest, handleCancelRequest } = useFetch(URL);
 
-  useEffect(() => {
-    if (lat && lon) {
-      handleRequest();
-      data && setApiResult({ ...apiResult, ...formatForecastWeather(data) });
-    }
-    return () => handleCancelRequest;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lat, lon, data]);
+  // useEffect(() => {
+  //   if (lat && lon) {
+  //     handleRequest();
+  //     data && setApiResult({ ...apiResult, ...formatForecastWeather(data) });
+  //   }
+  //   return () => handleCancelRequest;
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [lat, lon, data]);
 
   return (
     <>

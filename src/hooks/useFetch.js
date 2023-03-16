@@ -5,21 +5,15 @@ export const useFetch = (url) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [controller, setController] = useState(null);
-
   const abortController = new AbortController();
 
-  const getData = async () => {
+  const fetchData = async function () {
     try {
-      setController(abortController);
       setLoading(true);
       const resquest = await fetch(url, { signal: abortController.signal });
       const response = await resquest.json();
       setData(response);
-      setQuery(false);
     } catch (error) {
-      setLoading(false);
-      setQuery(false);
       setError(error);
       throw error;
     } finally {
@@ -29,25 +23,17 @@ export const useFetch = (url) => {
   };
 
   useEffect(() => {
-    if (query) {
-      getData();
-    }
-    return () => abortController.abort();
+    query && fetchData();
+    return () => {
+      abortController.abort();
+      setData(null);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
-
-  const handleCancelRequest = () => {
-    if (controller) {
-      controller.abort();
-      setData(null);
-      setQuery(false);
-      setError("Request cancelled");
-    }
-  };
 
   const handleRequest = () => {
     return setQuery(true);
   };
 
-  return { data, loading, error, handleRequest, handleCancelRequest };
+  return { data, loading, error, handleRequest };
 };
