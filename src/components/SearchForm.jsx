@@ -3,7 +3,7 @@ import * as Unicons from "@iconscout/react-unicons";
 import { useFetch } from "../hooks/useFetch";
 import { formatCurrentWeather } from "../services/utils";
 
-const SearchForm = ({ city, setCity, setApiResult }) => {
+const SearchForm = ({ city, setCity, apiResult, lat, lon, setApiResult }) => {
   const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}&units=metric`;
 
   const [inputError, setInputError] = useState(false);
@@ -29,15 +29,14 @@ const SearchForm = ({ city, setCity, setApiResult }) => {
     if (data) {
       if (data.cod === "404") {
         setInputError(true);
-      }
-      if (data.cod !== "404") {
-        console.log("data: ", formatCurrentWeather(data));
+      } else {
         setApiResult(formatCurrentWeather(data));
       }
-      setCity("");
+      // setCity("");
     }
 
     return () => handleCancelRequest;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   return (

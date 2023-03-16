@@ -1,10 +1,12 @@
 import { DateTime } from "luxon";
 
-const formatToLocalTime = (
+export const formatToLocalTime = (
   secs,
   zone,
   format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
-) => DateTime.fromSeconds(secs).setZone(zone).toFormat(format);
+) => {
+  return DateTime.fromSeconds(secs).setZone(zone).toFormat(format).toString();
+};
 
 export const formatCurrentWeather = (data) => {
   const {

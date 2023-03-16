@@ -12,6 +12,9 @@ function App() {
   const {
     lat,
     lon,
+    timezone,
+    daily,
+    hourly,
     temp,
     feels_like,
     temp_min,
@@ -31,11 +34,26 @@ function App() {
     <>
       <div className="mx-auto max-w-screen-md mt-4 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400">
         <TopButtons></TopButtons>
-        <SearchForm city={city} setCity={setCity} setApiResult={setApiResult} />
+        <SearchForm
+          city={city}
+          setCity={setCity}
+          apiResult={apiResult}
+          setApiResult={setApiResult}
+        />
 
-        {apiResult && <code>{JSON.stringify(apiResult)}</code>}
+        {/* {apiResult && <code>{JSON.stringify(apiResult)}</code>} */}
 
-        <TimeAndLocation time={dt} country={country} name={name} />
+        <TimeAndLocation
+          dt={dt}
+          lat={lat}
+          lon={lon}
+          name={name}
+          timezone={timezone}
+          country={country}
+          apiResult={apiResult}
+          setApiResult={setApiResult}
+        />
+
         <TemperatureAndDetails
           details={details}
           icon={icon}
@@ -52,12 +70,14 @@ function App() {
           title="HOURLY FORECAST"
           lat={lat}
           lon={lon}
+          hourly={hourly}
           setApiResult={setApiResult}
         />
         <Forecast
           title="DAILY FORECAST"
           lat={lat}
           lon={lon}
+          daily={daily}
           setApiResult={setApiResult}
         />
       </div>
