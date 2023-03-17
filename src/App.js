@@ -83,7 +83,6 @@ function App() {
               timezone={timezone}
               name={name}
               country={country}
-              loading={loading}
             />
 
             {/* <TemperatureAndDetails
