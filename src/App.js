@@ -1,18 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TopButtons from "./components/TopButtons";
 import SearchForm from "./components/SearchForm";
 import TimeAndLocation from "./components/TimeAndLocation";
 import TemperatureAndDetails from "./components/TemperatureAndDetails";
 import Forecast from "./components/Forecast";
+// import { time } from "console";
+import { useFetch } from "./hooks/useFetch";
+import { formatWeather } from "./services/utils";
 
 function App() {
   const [city, setCity] = useState("");
   const [apiResult, setApiResult] = useState({});
 
+  const BASE_URL = "https://api.openweathermap.org/data/2.5/";
+  const API_KEY = process.env.REACT_APP_API_KEY;
+  const SEARCH_TYPE = {
+    weather: "weather?q=",
+    onecall: "onecall?",
+    forecast: "forecast?",
+  };
+
+  const { data, loading, error, requestData } = useFetch(
+    BASE_URL,
+    SEARCH_TYPE.weather,
+    city,
+    API_KEY
+  );
+
+  useEffect(() => {
+    if (data) {
+      // console.log(data);
+      // {cod: 429, message: 'Your account is temporary blocked due to exceeding…per subscription https://openweathermap.org/price'}
+      if (data.cod === "404") {
+        // setInputError(true);
+      } else {
+        setApiResult(formatWeather(data));
+        setCity("");
+      }
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   const {
+    timezone,
+    name,
+    dt,
+    country,
     lat,
     lon,
-    timezone,
     daily,
     hourly,
     temp,
@@ -20,9 +56,6 @@ function App() {
     temp_min,
     temp_max,
     humidity,
-    name,
-    dt,
-    country,
     sunrise,
     sunset,
     details,
@@ -37,66 +70,51 @@ function App() {
         <SearchForm
           city={city}
           setCity={setCity}
-          apiResult={apiResult}
           setApiResult={setApiResult}
+          loading={loading}
+          error={error}
+          requestData={requestData}
         />
 
-        {/* {apiResult && <code>{JSON.stringify(apiResult)}</code>} */}
+        {!loading && (
+          <>
+            <TimeAndLocation
+              dt={dt}
+              timezone={timezone}
+              name={name}
+              country={country}
+              loading={loading}
+            />
 
-        {/* <TimeAndLocation
-          dt={dt}
-          lat={lat}
-          lon={lon}
-          name={name}
-          timezone={timezone}
-          country={country}
-          apiResult={apiResult}
-          setApiResult={setApiResult}
-        /> */}
-
-        {/* <TemperatureAndDetails
-          details={details}
-          icon={icon}
-          temp={temp}
-          feels_like={feels_like}
-          humidity={humidity}
-          speed={speed}
-          sunrise={sunrise}
-          sunset={sunset}
-          temp_min={temp_min}
-          temp_max={temp_max}
-        />
-        <Forecast
-          title="HOURLY FORECAST"
-          lat={lat}
-          lon={lon}
-          hourly={hourly}
-          setApiResult={setApiResult}
-        />
-        <Forecast
-          title="DAILY FORECAST"
-          lat={lat}
-          lon={lon}
-          daily={daily}
-          setApiResult={setApiResult}
-        /> */}
+            {/* <TemperatureAndDetails
+              details={details}
+              icon={icon}
+              temp={temp}
+              feels_like={feels_like}
+              humidity={humidity}
+              speed={speed}
+              sunrise={sunrise}
+              sunset={sunset}
+              temp_min={temp_min}
+              temp_max={temp_max}
+            />
+            <Forecast
+              title="HOURLY FORECAST"
+              lat={lat}
+              lon={lon}
+              hourly={hourly}
+              setApiResult={setApiResult}
+            />
+            <Forecast
+              title="DAILY FORECAST"
+              lat={lat}
+              lon={lon}
+              daily={daily}
+              setApiResult={setApiResult}
+            /> */}
+          </>
+        )}
       </div>
-      {/* <Header title="React Weather App" />
-      <UilReact />
-      <div className="contenedor-form">
-        <div className="container">
-          <div className="row">
-            <p>Type the city you would like to get the weather.</p>
-            <div className="col m6 s12">
-              <Form city={city} setCity={setCity} setQuery={setQuery} />
-            </div>
-            <div className="col m6 s12">
-              {error && <Error message="No result found for this city." />}
-              <Weather apiResult={apiResult} />
-            </div>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 }

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import * as Unicons from "@iconscout/react-unicons";
-import { useFetch } from "../hooks/useFetch";
-import { formatCurrentWeather } from "../services/utils";
 
-const SearchForm = ({ city, setCity, apiResult, lat, lon, setApiResult }) => {
-  // const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.REACT_APP_API_KEY}&units=metric`;
-  const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=78a9f6240ca5a370f974612775448718&units=metric`;
-
+const SearchForm = ({
+  city,
+  setCity,
+  setApiResult,
+  loading,
+  error,
+  requestData,
+}) => {
   const [inputError, setInputError] = useState(false);
 
   const handleChange = (e) => setCity(e.target.value);
-  const { data, loading, error, handleRequest } = useFetch(URL);
 
   const handleSubmit = (e) => {
     console.log("submit city:", city);
@@ -22,24 +23,8 @@ const SearchForm = ({ city, setCity, apiResult, lat, lon, setApiResult }) => {
     }
 
     setInputError(false);
-    handleRequest();
+    requestData();
   };
-
-  useEffect(() => {
-    if (data) {
-      // console.log(data);
-      // {cod: 429, message: 'Your account is temporary blocked due to exceeding…per subscription https://openweathermap.org/price'}
-      if (data.cod === "404") {
-        setInputError(true);
-      } else {
-        console.log(data);
-        // setApiResult(formatCurrentWeather(data));
-      }
-      setCity("");
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
 
   return (
     <>

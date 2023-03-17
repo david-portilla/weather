@@ -8,7 +8,7 @@ export const formatToLocalTime = (
   return DateTime.fromSeconds(secs).setZone(zone).toFormat(format).toString();
 };
 
-export const formatCurrentWeather = (data) => {
+export const formatWeather = (data) => {
   const {
     coord: { lat, lon },
     main: { temp, feels_like, temp_min, temp_max, humidity },
@@ -20,6 +20,24 @@ export const formatCurrentWeather = (data) => {
   } = data;
 
   const { main: details, icon } = weather[0];
+
+  let { timezone, daily, hourly } = data;
+
+  daily = daily.slice(1, 6).map((d) => {
+    return {
+      title: formatToLocalTime(d.dt, timezone, "ccc"),
+      temp: d.temp.day,
+      icon: d.weather[0].icon,
+    };
+  });
+
+  hourly = hourly.slice(1, 6).map((d) => {
+    return {
+      title: formatToLocalTime(d.dt, timezone, "hh:mm a"),
+      temp: d.temp,
+      icon: d.weather[0].icon,
+    };
+  });
 
   return {
     lat,
@@ -37,26 +55,8 @@ export const formatCurrentWeather = (data) => {
     details,
     icon,
     speed,
+    timezone,
+    daily,
+    hourly,
   };
-};
-
-export const formatForecastWeather = (data) => {
-  let { timezone, daily, hourly } = data;
-  daily = daily.slice(1, 6).map((d) => {
-    return {
-      title: formatToLocalTime(d.dt, timezone, "ccc"),
-      temp: d.temp.day,
-      icon: d.weather[0].icon,
-    };
-  });
-
-  hourly = hourly.slice(1, 6).map((d) => {
-    return {
-      title: formatToLocalTime(d.dt, timezone, "hh:mm a"),
-      temp: d.temp,
-      icon: d.weather[0].icon,
-    };
-  });
-
-  return { timezone, daily, hourly };
 };
