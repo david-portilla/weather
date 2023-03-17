@@ -7,7 +7,6 @@ const TimeAndLocation = ({
   timezone,
   name = "Santiago de Cali",
   country = "CO",
-  loading = false,
 }) => {
   const now = DateTime.now();
 
