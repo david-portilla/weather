@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import * as Unicons from '@iconscout/react-unicons';
 
 const SearchForm = ({
 	city,
 	setCity,
-
 	loading,
 	setData,
 	setError,
@@ -18,10 +17,8 @@ const SearchForm = ({
 		if (city.trim() === '') {
 			setError(true);
 			setData({ cod: 'Input error', message: 'The city field is required' });
-
 			return;
 		}
-
 		requestData();
 	};
 

@@ -29,7 +29,6 @@ function App() {
 	);
 
 	useEffect(() => {
-		console.log(data);
 		if (data && data.cod === 200) {
 			setApiResult(formatWeather(data));
 		}
@@ -64,7 +63,6 @@ function App() {
 				<SearchForm
 					city={city}
 					setCity={setCity}
-					setApiResult={setApiResult}
 					loading={loading}
 					setData={setData}
 					setError={setError}
@@ -74,7 +72,7 @@ function App() {
 				{!loading && (
 					<>
 						{error && <Error data={data} />}
-						{!error && (
+						{!error && data !== null && (
 							<>
 								<TimeAndLocation
 									dt={dt}
@@ -82,36 +80,32 @@ function App() {
 									name={name}
 									country={country}
 								/>
-								{data !== null && (
-									<>
-										<TemperatureAndDetails
-											details={details}
-											icon={icon}
-											temp={temp}
-											feels_like={feels_like}
-											humidity={humidity}
-											speed={speed}
-											sunrise={sunrise}
-											sunset={sunset}
-											temp_min={temp_min}
-											temp_max={temp_max}
-										/>
-										<Forecast
-											title='HOURLY FORECAST'
-											lat={lat}
-											lon={lon}
-											hourly={hourly}
-											setApiResult={setApiResult}
-										/>
-										<Forecast
-											title='DAILY FORECAST'
-											lat={lat}
-											lon={lon}
-											daily={daily}
-											setApiResult={setApiResult}
-										/>
-									</>
-								)}
+								<TemperatureAndDetails
+									details={details}
+									icon={icon}
+									temp={temp}
+									feels_like={feels_like}
+									humidity={humidity}
+									speed={speed}
+									sunrise={sunrise}
+									sunset={sunset}
+									temp_min={temp_min}
+									temp_max={temp_max}
+								/>
+								{/* <Forecast
+									title='HOURLY FORECAST'
+									lat={lat}
+									lon={lon}
+									hourly={hourly}
+									setApiResult={setApiResult}
+								/>
+								<Forecast
+									title='DAILY FORECAST'
+									lat={lat}
+									lon={lon}
+									daily={daily}
+									setApiResult={setApiResult}
+								/> */}
 							</>
 						)}
 					</>

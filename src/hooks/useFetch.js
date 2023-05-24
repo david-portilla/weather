@@ -27,7 +27,6 @@ export const useFetch = (
 			if (response.cod === '404') {
 				setError(true);
 				setData(response);
-				setCity('');
 				return;
 			}
 
@@ -48,6 +47,7 @@ export const useFetch = (
 			setData({ cod: 'Fetch error', message: error.message });
 			throw error;
 		} finally {
+			setCity('');
 			setLoading(false);
 			setQuery(false);
 		}
