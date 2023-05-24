@@ -24,7 +24,7 @@ const TimeAndLocation = ({ dt, timezone, name, country }) => {
 			</div>
 
 			{name && country && (
-				<div className='flex items-center justify-center my-3'>
+				<div className='flex items-center justify-center py-4'>
 					<p className='text-white text-3xl font-medium'>
 						{name}, {country}
 					</p>

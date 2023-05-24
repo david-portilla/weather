@@ -14,14 +14,19 @@ export const formatWeather = (data) => {
 		main: { temp, feels_like, temp_min, temp_max, humidity },
 		name,
 		dt,
-		sys: { country, sunrise, sunset },
+		sys: { country },
 		weather,
 		wind: { speed },
 	} = data;
 
-	const { main: details, icon } = weather[0];
+	const { description: details, icon } = weather[0];
 
-	let { timezone, daily, hourly } = data;
+	let {
+		timezone,
+		daily,
+		hourly,
+		sys: { sunrise, sunset },
+	} = data;
 
 	daily = daily.slice(1, 6).map((d) => {
 		return {
@@ -38,6 +43,9 @@ export const formatWeather = (data) => {
 			icon: d.weather[0].icon,
 		};
 	});
+
+	sunrise = formatToLocalTime(sunrise, timezone, 'hh:mm a');
+	sunset = formatToLocalTime(sunset, timezone, 'hh:mm a');
 
 	return {
 		lat,

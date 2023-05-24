@@ -29,6 +29,7 @@ function App() {
 	);
 
 	useEffect(() => {
+		console.log(data);
 		if (data && data.cod === 200) {
 			setApiResult(formatWeather(data));
 		}
