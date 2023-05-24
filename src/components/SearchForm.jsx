@@ -38,7 +38,7 @@ const SearchForm = ({
 						autoFocus
 						autoComplete='off'
 						placeholder='Search a city....'
-						className='bg-white text-xl font-light p-2 w-full shadow-xl focus:outline-none capitalize placeholder:lowercase'
+						className='bg-white text-xl font-light p-2 w-full shadow-xl focus:outline-none first-letter:capitalize'
 					/>
 					<button
 						type='submit'
@@ -49,14 +49,14 @@ const SearchForm = ({
 							className='text-white cursor-pointer transition ease-out hover:scale-125'
 						/>
 					</button>
-					<button>
+
+					{/* <button>
 						<Unicons.UilLocationPoint
 							size={25}
 							className='text-white cursor-pointer transition ease-out hover:scale-125'
 						/>
 					</button>
 				</div>
-
 				<div className='flex flex-row w-1/4 items-center justify-center'>
 					<button
 						name='metric'
@@ -70,7 +70,7 @@ const SearchForm = ({
 						className='text-xl text-white font-light transition ease-out hover:scale-125'
 					>
 						°F
-					</button>
+					</button> */}
 				</div>
 			</form>
 
