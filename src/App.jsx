@@ -29,7 +29,7 @@ function App() {
 	);
 
 	useEffect(() => {
-		console.log(data);
+		// console.log(data);
 		if (data && data.cod === 200) {
 			setApiResult(formatWeather(data));
 		}
@@ -73,7 +73,7 @@ function App() {
 				{!loading && (
 					<>
 						{error && <Error data={data} />}
-						{!error && data !== null && (
+						{!error && data !== null && apiResult !== null && (
 							<>
 								<TimeAndLocation
 									dt={dt}
@@ -93,20 +93,8 @@ function App() {
 									temp_min={temp_min}
 									temp_max={temp_max}
 								/>
-								{/* <Forecast
-									title='HOURLY FORECAST'
-									lat={lat}
-									lon={lon}
-									hourly={hourly}
-									setApiResult={setApiResult}
-								/>
-								<Forecast
-									title='DAILY FORECAST'
-									lat={lat}
-									lon={lon}
-									daily={daily}
-									setApiResult={setApiResult}
-								/> */}
+								<Forecast title='HOURLY FORECAST' data={hourly} />
+								<Forecast title='DAILY FORECAST' data={daily} />
 							</>
 						)}
 					</>

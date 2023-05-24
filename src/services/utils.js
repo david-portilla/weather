@@ -30,7 +30,7 @@ export const formatWeather = (data) => {
 
 	daily = daily.slice(1, 6).map((d) => {
 		return {
-			title: formatToLocalTime(d.dt, timezone, 'ccc'),
+			title: formatToLocalTime(d.dt, timezone, 'ccc, dd'),
 			temp: d.temp.day,
 			icon: d.weather[0].icon,
 		};
