@@ -1,55 +1,69 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-export const useFetch = (url, searchType, city, apikey, units = "metric") => {
-  const [query, setQuery] = useState(false);
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+export const useFetch = (
+	url,
+	searchType,
+	city,
+	setCity,
+	apikey,
+	units = 'metric'
+) => {
+	const [query, setQuery] = useState(false);
+	const [data, setData] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 
-  const abortController = new AbortController();
-  const requestController = { signal: abortController.signal };
+	const abortController = new AbortController();
+	const requestController = { signal: abortController.signal };
 
-  const cityURL = `${url}${searchType}${city}&appid=${apikey}&units=${units}`;
+	const URL = `${url}${searchType}${city}&appid=${apikey}&units=${units}`;
 
-  const fetchData = async function () {
-    try {
-      setLoading(true);
-      const cityResquest = await fetch(cityURL, requestController);
-      const cityResponse = await cityResquest.json();
+	const fetchData = async function () {
+		try {
+			setLoading(true);
+			const request = await fetch(URL, requestController);
+			const response = await request.json();
 
-      const {
-        coord: { lat, lon },
-      } = cityResponse;
+			if (response.cod === '404') {
+				setError(true);
+				setData(response);
+				setCity('');
+				return;
+			}
 
-      const forecastRequest = await fetch(
-        `${url}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${apikey}&units=${units}`,
-        requestController
-      );
+			const {
+				coord: { lat, lon },
+			} = response;
 
-      const forecastResponse = await forecastRequest.json();
-      setData({ ...cityResponse, ...forecastResponse });
-    } catch (error) {
-      setError(error);
-      throw error;
-    } finally {
-      setLoading(false);
-      setQuery(false);
-      setError(false);
-    }
-  };
+			const forecastRequest = await fetch(
+				`${url}onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&appid=${apikey}&units=${units}`,
+				requestController
+			);
 
-  useEffect(() => {
-    query && fetchData();
-    return () => {
-      abortController.abort();
-      setData(null);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query]);
+			const forecastResponse = await forecastRequest.json();
+			setError(false);
+			setData({ ...response, ...forecastResponse });
+		} catch (error) {
+			setError(true);
+			setData({ cod: 'Fetch error', message: error.message });
+			throw error;
+		} finally {
+			setLoading(false);
+			setQuery(false);
+		}
+	};
 
-  const requestData = () => {
-    return setQuery(true);
-  };
+	useEffect(() => {
+		query === true && fetchData();
+		return () => {
+			abortController.abort();
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [query]);
 
-  return { data, loading, error, requestData };
+	const requestData = () => {
+		return setQuery(true);
+	};
+
+	return { data, setData, loading, error, setError, requestData };
 };
