@@ -1,8 +1,6 @@
 import React from 'react';
 
 const Forecast = ({ title, data }) => {
-	// console.log('Forecast:', data);
-
 	return (
 		<div>
 			<div className='flex items-center justify-start mt-6'>

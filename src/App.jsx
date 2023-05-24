@@ -41,8 +41,6 @@ function App() {
 		name,
 		dt,
 		country,
-		lat,
-		lon,
 		daily,
 		hourly,
 		temp,
@@ -60,7 +58,7 @@ function App() {
 	return (
 		<>
 			<div className='mx-auto max-w-screen-md my-5 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400'>
-				<TopButtons></TopButtons>
+				<TopButtons setCity={setCity} requestData={requestData} />
 				<SearchForm
 					city={city}
 					setCity={setCity}

@@ -38,7 +38,7 @@ const SearchForm = ({
 						autoFocus
 						autoComplete='off'
 						placeholder='Search a city....'
-						className='bg-white text-xl font-light p-2 w-full shadow-xl focus:outline-none first-letter:capitalize'
+						className='bg-white text-xl font-light p-2 w-full shadow-xl focus:outline-none capitalize first-letter:capitalize'
 					/>
 					<button
 						type='submit'
