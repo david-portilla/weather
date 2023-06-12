@@ -58,15 +58,7 @@ function App() {
 	return (
 		<>
 			<div className='mx-auto max-w-screen-md my-5 py-5 px-32 bg-gradient-to-br from-cyan-700 to-blue-700 h-fit shadow-xl shadow-gray-400'>
-<<<<<<< HEAD
 				<TopButtons setCity={setCity} requestData={requestData} />
-=======
-				<TopButtons
-					setCity={setCity}
-					loading={loading}
-					requestData={requestData}
-				/>
->>>>>>> 107b9d0 (enable Top Buttons feature)
 				<SearchForm
 					city={city}
 					setCity={setCity}
